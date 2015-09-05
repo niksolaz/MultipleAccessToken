@@ -1,0 +1,24 @@
+{
+  "name": "mat",
+  "version": "1.0.0",
+  "description": "multiple access token",
+  "main": "mat.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niksolaz/MultipleAccessToken.git"
+  },
+  "keywords": [
+    "node.js",
+    "example",
+    "jwt"
+  ],
+  "author": "Nik Solaz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/niksolaz/MultipleAccessToken/issues"
+  },
+  "homepage": "https://github.com/niksolaz/MultipleAccessToken#readme"
+}
