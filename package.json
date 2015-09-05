@@ -20,5 +20,14 @@
   "bugs": {
     "url": "https://github.com/niksolaz/MultipleAccessToken/issues"
   },
-  "homepage": "https://github.com/niksolaz/MultipleAccessToken#readme"
+  "homepage": "https://github.com/niksolaz/MultipleAccessToken#readme",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "express": "^4.13.3",
+    "jsonwebtoken": "^5.0.5",
+    "mongoose": "^4.1.5",
+    "morgan": "^1.6.1",
+    "passport-facebook": "^2.0.0",
+    "twitter": "^1.2.5"
+  }
 }
