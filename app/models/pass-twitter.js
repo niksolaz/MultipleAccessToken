@@ -1,4 +1,4 @@
-var passTwitter = require('passport-twitter');
+var passport= require('passport-twitter');
 
 //get  ID and secret key
 var TWITTER_CONSUMER_KEY = process.env.TWITTER_KEY;

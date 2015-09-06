@@ -1,4 +1,4 @@
-var passFb = require('passport-facebook');
+var passport = require('passport-facebook');
 
 //get  ID and secret key
 var FACEBOOK_APP_ID = process.env.FACEBOOK_ID;
