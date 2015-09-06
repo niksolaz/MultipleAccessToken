@@ -1,8 +1,8 @@
 var passFb = require('passport-facebook');
 
 //get  ID and secret key
-var FACEBOOK_APP_ID = process.env.ID;
-var FACEBOOK_APP_SECRET = process.env.SECRET;
+var FACEBOOK_APP_ID = process.env.FACEBOOK_ID;
+var FACEBOOK_APP_SECRET = process.env.FACEBOOK_SECRET;
 
 //use element key
 passport.use(new FacebookStrategy({
