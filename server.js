@@ -32,7 +32,7 @@ app.use(morgan('dev'));
 app.get('/setup',function(req,res){
 
 	var sampleUser= new User({
-		usarname:'Nik Nolte',
+		username:'Nik Nolte',
 		mail:'example@gmail.com',
 		password:'password1',
 		admin:true
