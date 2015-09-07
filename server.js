@@ -33,8 +33,8 @@ app.get('/setup',function(req,res){
 	var sampleUser= new User({
 		usarname:'admin',
 		mail:'example@gmail.com',
-		password:'admin'
-		//admin:true
+		password:'admin',
+		admin:true
 	});
 	//save sample user
 	sampleUser.save(function(err){
