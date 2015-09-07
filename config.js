@@ -1,11 +1,7 @@
+//saved info secret and database in bash
 var Database = process.env.DATABASE_MODULUS;
 var Secret = process.env.SECRET_MODULUS;
-console.log('This is database: '+Database);
-console.log('This is secret: '+Secret);
-console.log(process.env.DATABASE_MODULUS);
-console.log(process.env.SECRET_MODULUS);
-
-
+//export file
 module.exports = {
 
     'secret': Secret,
