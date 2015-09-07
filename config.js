@@ -1,6 +1,9 @@
+var database = process.env.DATABASE;
+var secret = process.env.SECRET;
+
 module.exports = {
 
-    'secret': 'ilovescotchyscotch',
-    'database': 'mongodb://<user>:<pass>;example.modulusmongo.net:27017/database'
+    'secret': secret,
+    'database': database
 
 };
