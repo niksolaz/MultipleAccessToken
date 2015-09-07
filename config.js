@@ -1,7 +1,10 @@
 var Database = JSON.stringify(process.env.DATABASE);
-var Secret = JSON.stringify(process.env.SECRET);
+var Secret = process.env.SECRET;
 console.log('This is database: '+Database);
 console.log('This is secret: '+Secret);
+console.log(process.env.DATABASE);
+console.log(process.env.SECRET);
+
 
 module.exports = {
 
