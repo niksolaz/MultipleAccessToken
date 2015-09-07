@@ -1,9 +1,9 @@
 var database = process.env.DATABASE;
-var secret = process.env.SECRET;
+var secret = process.env.DATABASE;
 
 module.exports = {
 
-    'secret': secret,
-    'database': database
+    'secret': process.env.DATABASE,
+    'database': process.env.DATABASE
 
 };

@@ -8,6 +8,4 @@ module.exports = mongoose.model('User', new Schema({
     mail: String, 
     password: String, 
     admin: Boolean
-    twitterlogin: Boolean,
-    facebooklogin: Boolean 
 }));
