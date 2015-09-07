@@ -59,11 +59,11 @@ apiRoutes.get('/',function(req,res){
 });
 
 // route to return all users (GET http://localhost:8080/api/users)
-apiRoutes.get('/users',function(req,res){
-	User.find({},function(err,user){
-		res.json(users);
-	});
-});
+apiRoutes.get('/users', function(req, res) {
+  User.find({}, function(err, users) {
+    res.json(users);
+  });
+}); 
 
 app.use('/api', apiRoutes);
 
