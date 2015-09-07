@@ -13,6 +13,7 @@ var passport = require('passport')
 
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('./config'); // get our config file
+var oauth = require('./oauth.js'); //get our oauth file 
 var User   = require('./app/models/user'); // get our mongoose model
     
 // =======================
@@ -50,21 +51,65 @@ app.get('/setup',function(req,res){
 	});
 });
 
+//login and autentication facebook
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+passport.use(new FacebookStrategy({
+    clientID: FACEBOOK_APP_ID,
+    clientSecret: FACEBOOK_APP_SECRET,
+    callbackURL: "http://www.example.com/auth/facebook/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOne({'facebook.id':profile.id}, function(err, user) {
+      if (err) { return done(err); }
+      done(null, user);
+    });
+  }
+));
+app.get('/auth/facebook', passport.authenticate('facebook'));
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { successRedirect: '/',
+                                      failureRedirect: '/login' }));
 //API Routes
 // get an instance of the router for api routes
 var apiRoutes = express.Router();
-
 // route to show a random message (GET http://localhost:8080/api/)
-apiRoutes.get('/',function(req,res){
-	res.json({ message: 'Welcome to the API' });
+
+apiRoutes.get('/', function(req, res){
+	res.render('login', { user: req.user });
 });
 
+apiRoutes.get('/auth/facebook',
+	passport.authenticate('facebook'),
+	function(req, res){
+});
+
+apiRoutes.get('/auth/facebook/callback',
+	passport.authenticate('facebook', { failureRedirect: '/' }),
+	function(req, res) {
+	 res.redirect('/account');
+});
+apiRoutes.get('/logout', function(req, res){
+	req.logout();
+	res.redirect('/');
+});
 // route to return all users (GET http://localhost:8080/api/users)
 apiRoutes.get('/users', function(req, res) {
   User.find({}, function(err, users) {
     res.json(users);
   });
-}); 
+});
+
 
 app.use('/api', apiRoutes);
 
