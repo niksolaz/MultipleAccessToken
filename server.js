@@ -7,6 +7,7 @@ var bodyParser  = require('body-parser');
 var morgan      = require('morgan');
 var mongoose    = require('mongoose');
 var passport = require('passport')
+				, LocalStrategy = require('passport-local').Strategy
 				, FacebookStrategy = require('passport-facebook').Strategy
 				,TwitterStrategy = require('passport-twitter').Strategy;
 
