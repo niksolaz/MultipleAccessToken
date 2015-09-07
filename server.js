@@ -34,7 +34,7 @@ app.get('/setup',function(req,res){
 		usarname:'admin',
 		mail:'example@gmail.com',
 		password:'admin'
-		admin:true
+		//admin:true
 	});
 	//save sample user
 	sampleUser.save(function(err){
