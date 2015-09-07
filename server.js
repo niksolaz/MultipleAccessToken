@@ -6,6 +6,9 @@ var app         = express();
 var bodyParser  = require('body-parser');
 var morgan      = require('morgan');
 var mongoose    = require('mongoose');
+var passport = require('passport')
+				, FacebookStrategy = require('passport-facebook').Strategy
+				,TwitterStrategy = require('passport-twitter').Strategy;
 
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('./config'); // get our config file
@@ -25,19 +28,22 @@ app.use(bodyParser.json());
 // use morgan to log requests to the console
 app.use(morgan('dev'));
 
-// =======================
-// routes ================
-// =======================
-// basic route
-app.get('/', function(req, res) {
-    res.send('Hello! The API is at http://localhost:' + port + '/api');
+//create sample user
+app.get('/setup',function(req,res){
+	var sampleUser= new User({
+		usarname:'admin',
+		mail:'example@gmail.com',
+		password:'admin'
+		admin:true
+	});
+	//save sample user
+	sampleUser.save(function(err){
+		if(err) throw err;
+
+		console.log('User saved!!!!');
+		res.json({success: true});
+	});
 });
 
-// API ROUTES -------------------
-// we'll get to these in a second
-
-// =======================
-// start the server ======
-// =======================
 app.listen(port);
-console.log('Magic happens at http://localhost:' + port);
+console.log('Magic happens at http://localhost:'+ port);
