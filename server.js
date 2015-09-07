@@ -30,29 +30,35 @@ app.use(morgan('dev'));
 
 //create sample user
 app.get('/setup',function(req,res){
+
 	var sampleUser= new User({
-		usarname:'admin',
+		usarname:'Nik Nolte',
 		mail:'example@gmail.com',
-		password:'admin',
+		password:'password1',
 		admin:true
 	});
+	console.log(sampleUser);
 	//save sample user
-	sampleUser.save(function(err){
+	sampleUser.save(function(err,data){
 		if(err) throw err;
 
 		console.log('User saved!!!!');
-		res.json({success: true});
+		res.json({ success: true,
+				   data: sampleUser
+				});
 	});
 });
 
 //API Routes
-
+// get an instance of the router for api routes
 var apiRoutes = express.Router();
 
+// route to show a random message (GET http://localhost:8080/api/)
 apiRoutes.get('/',function(req,res){
 	res.json({ message: 'Welcome to the API' });
 });
 
+// route to return all users (GET http://localhost:8080/api/users)
 apiRoutes.get('/users',function(req,res){
 	User.find({},function(err,user){
 		res.json(users);
