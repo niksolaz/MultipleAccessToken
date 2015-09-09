@@ -7,5 +7,7 @@ module.exports = mongoose.model('User', new Schema({
     username: String,
     mail: String, 
     password: String, 
-    admin: Boolean
+    admin: Boolean,
+    facebook_id: String,
+    twitter_id:String
 }));
