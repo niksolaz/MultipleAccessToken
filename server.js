@@ -29,7 +29,7 @@ app.set('superSecret', config.secret); // secret variable
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.configure(function() {
-app.set('public', __dirname + '/public');
+app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.logger());
 app.use(express.cookieParser());
