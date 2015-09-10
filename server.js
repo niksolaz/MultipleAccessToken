@@ -99,8 +99,9 @@ passport.use(new TwitterStrategy({
 ));
 
 //Routes
-app.get('/', routes.index);
-app.get('/ping', routes.ping);
+app.get('/', function(req,res){
+	res.render('index',{title:'MAT',message:'Hello!'});
+});
 app.get('/account', ensureAuthenticated, function(req, res){
 res.render('account', { user: req.user });
 });
@@ -130,3 +131,9 @@ app.get('/logout', function(req, res){
 
 app.listen(port);
 console.log('Magic happens at http://localhost:'+ port);
+
+// test authentication
+function ensureAuthenticated(req, res, next) {
+if (req.isAuthenticated()) { return next(); }
+res.redirect('/')
+}
