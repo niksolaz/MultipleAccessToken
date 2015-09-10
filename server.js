@@ -12,7 +12,6 @@ var passport = require('passport')
 				, LocalStrategy = require('passport-local').Strategy
 				, FacebookStrategy = require('passport-facebook').Strategy
 				,TwitterStrategy = require('passport-twitter').Strategy;
-var routes = require('./routes');
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('./config'); // get our config file
 var oauth = require('./oauth.js'); //get our oauth file 
@@ -28,17 +27,12 @@ app.set('superSecret', config.secret); // secret variable
 // use body parser so we can get info from POST and/or URL parameters
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.configure(function() {
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-app.use(express.logger());
-app.use(express.cookieParser());
-app.use(express.methodOverride());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(app.router);
 app.use(express.static(__dirname + '/public'));
-});
+
 // use morgan to log requests to the console
 app.use(morgan('dev'));
 
