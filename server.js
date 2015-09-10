@@ -69,9 +69,8 @@ passport.use(new FacebookStrategy({
     callbackURL: config.oauth.facebook.callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOne({'facebook.id':profile.id}, function(err, user) {
-      if (err) { return done(err); }
-      done(null, user);
+    	process.nextTick(function () {
+   		return done(null, profile);
     });
   }
 ));
