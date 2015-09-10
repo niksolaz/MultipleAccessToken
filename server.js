@@ -64,9 +64,9 @@ passport.deserializeUser(function(id, done) {
 });
 
 passport.use(new FacebookStrategy({
-    clientID: oauth.facebook.clientID,
-    clientSecret: oauth.facebook.clientSecret,
-    callbackURL: oauth.facebook.callbackURL
+    clientID: config.oauth.facebook.clientID,
+    clientSecret: config.oauth.facebook.clientSecret,
+    callbackURL: config.oauth.facebook.callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOne({'facebook.id':profile.id}, function(err, user) {
@@ -75,43 +75,46 @@ passport.use(new FacebookStrategy({
     });
   }
 ));
-app.get('/auth/facebook', passport.authenticate('facebook'));
+passport.use(new TwitterStrategy({
+	 consumerKey: config.oauth.twitter.consumerKey,
+	 consumerSecret: config.oauth.twitter.consumerSecret,
+	 callbackURL: config.oauth.twitter.callbackURL
+	},
+	function(accessToken, refreshToken, profile, done) {
+ 		process.nextTick(function () {
+   		return done(null, profile);
+ 	});
+  }
+));
 
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { successRedirect: '/',
-                                      failureRedirect: '/login' }));
-//API Routes
-// get an instance of the router for api routes
-var apiRoutes = express.Router();
-// route to show a random message (GET http://localhost:8080/api/)
-
-apiRoutes.get('/', function(req, res){
-	res.render('login', { user: req.user });
+//Routes
+app.get('/', routes.index);
+app.get('/ping', routes.ping);
+app.get('/account', ensureAuthenticated, function(req, res){
+res.render('account', { user: req.user });
 });
-
-apiRoutes.get('/auth/facebook',
+app.get('/auth/facebook',
 	passport.authenticate('facebook'),
 	function(req, res){
 });
-
-apiRoutes.get('/auth/facebook/callback',
+app.get('/auth/facebook/callback',
 	passport.authenticate('facebook', { failureRedirect: '/' }),
 	function(req, res) {
 	 res.redirect('/account');
 });
-apiRoutes.get('/logout', function(req, res){
+app.get('/auth/twitter',
+	passport.authenticate('twitter'),
+	function(req, res){
+});
+app.get('/auth/twitter/callback',
+	passport.authenticate('twitter', { failureRedirect: '/' }),
+	function(req, res) {
+	 res.redirect('/account');
+});
+app.get('/logout', function(req, res){
 	req.logout();
 	res.redirect('/');
 });
-// route to return all users (GET http://localhost:8080/api/users)
-apiRoutes.get('/users', function(req, res) {
-  User.find({}, function(err, users) {
-    res.json(users);
-  });
-});
-
-
-app.use('/api', apiRoutes);
 
 
 app.listen(port);
